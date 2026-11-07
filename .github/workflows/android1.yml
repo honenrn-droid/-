@@ -21,8 +21,8 @@ jobs:
 
       - name: Extract project
         run: |
-          unzip -q TBN_Jeju_Radio_Online_Build.zip
-          # 압축 해제된 폴더를 자동으로 찾아 이동합니다
+          # -o 옵션을 추가하여 묻지 않고 강제로 압축을 풉니다
+          unzip -o -q TBN_Jeju_Radio_Online_Build.zip
           cd $(ls -d TBN_Jeju_Radio_*)
           chmod +x gradlew
           ./gradlew assembleDebug
