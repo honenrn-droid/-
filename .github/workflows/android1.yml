@@ -19,22 +19,15 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Check repository files
-        run: ls -la
-
       - name: Extract project
         run: |
-          # 업로드하신 zip 파일명이 정확히 일치하는지 확인합니다
           unzip -q TBN_Jeju_Radio_Online_Build.zip
-
-      - name: Build APK
-        run: |
-          # 압축 해제된 실제 폴더명으로 이동합니다 (폴더명이 다를 경우 수정 필요)
-          cd TBN_Jeju_Radio_Android
+          # 압축 해제된 폴더를 자동으로 찾아 이동합니다
+          cd $(ls -d TBN_Jeju_Radio_*)
           chmod +x gradlew
-          gradle assembleDebug
+          ./gradlew assembleDebug
 
       - uses: actions/upload-artifact@v4
         with:
           name: TBN-Jeju-Radio-APK
-          path: TBN_Jeju_Radio_Android/app/build/outputs/apk/debug/app-debug.apk
+          path: '**/app/build/outputs/apk/debug/app-debug.apk'
